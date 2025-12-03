@@ -1,0 +1,29 @@
+CRITICAL - 2025-11-28 09:10:08 --> ParseError: syntax error, unexpected token "]"
+[Method: GET, Route: news/elvis-sighted]
+in APPPATH/Config/Filters.php on line 95.
+ 1 SYSTEMPATH/Autoloader/Autoloader.php(295): CodeIgniter\Autoloader\Autoloader->includeFile()
+ 2 SYSTEMPATH/Autoloader/Autoloader.php(271): CodeIgniter\Autoloader\Autoloader->loadInNamespace()
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass()
+ 4 SYSTEMPATH/Config/Factories.php(297): class_exists()
+ 5 SYSTEMPATH/Config/Factories.php(216): CodeIgniter\Config\Factories::locateClass()
+ 6 SYSTEMPATH/Config/Factories.php(159): CodeIgniter\Config\Factories::getDefinedInstance()
+ 7 SYSTEMPATH/Config/Factories.php(188): CodeIgniter\Config\Factories::__callStatic()
+ 8 SYSTEMPATH/Common.php(210): CodeIgniter\Config\Factories::get()
+ 9 SYSTEMPATH/Config/Services.php(295): config()
+10 SYSTEMPATH/Config/BaseService.php(312): CodeIgniter\Config\Services::filters()
+11 SYSTEMPATH/Config/BaseService.php(251): CodeIgniter\Config\BaseService::__callStatic()
+12 SYSTEMPATH/Config/Services.php(292): CodeIgniter\Config\BaseService::getSharedInstance()
+13 SYSTEMPATH/Config/BaseService.php(321): CodeIgniter\Config\Services::filters()
+14 SYSTEMPATH/CodeIgniter.php(345): CodeIgniter\Config\BaseService::__callStatic()
+15 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+17 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
+CRITICAL - 2025-11-28 09:11:58 --> ParseError: syntax error, unexpected variable "$routes"
+[Method: GET, Route: news/elvis-sighted]
+in APPPATH/Config/Routes.php on line 15.
+ 1 SYSTEMPATH/CodeIgniter.php(821): CodeIgniter\Router\RouteCollection->loadRoutes()
+ 2 SYSTEMPATH/CodeIgniter.php(455): CodeIgniter\CodeIgniter->tryToRouteIt()
+ 3 SYSTEMPATH/CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest()
+ 4 SYSTEMPATH/Boot.php(334): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH/Boot.php(67): CodeIgniter\Boot::runCodeIgniter()
+ 6 FCPATH/index.php(56): CodeIgniter\Boot::bootWeb()
