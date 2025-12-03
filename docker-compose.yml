@@ -1,0 +1,53 @@
+services:
+  # --- APP (CodeIgniter) ---
+  app:
+    build: ./docker/web
+    container_name: ci4_app
+    ports:
+      - "8800:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - ci4_net
+
+  # --- BASE DE DATOS (MariaDB 11.4) ---
+  db:
+    image: mariadb:11.4
+    container_name: ci4_db
+    environment:
+      MYSQL_ROOT_PASSWORD: bbdd
+      MYSQL_DATABASE: ci4tutorial
+      MYSQL_USER: joselu
+      MYSQL_PASSWORD: Alumno1234
+    ports:
+      - "6033:3306"
+    volumes:
+      # 1. Persistencia LOCAL (Carpeta ignorada por Git)
+      - ./docker/mysql_data:/var/lib/mysql
+      # 2. Inicialización (Archivos .sql que SI van en Git)
+      - ./docker/db-init:/docker-entrypoint-initdb.d
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    networks:
+      - ci4_net
+
+  # --- PHPMYADMIN ---
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:5.2
+    container_name: ci4_pma
+    environment:
+      PMA_HOST: db
+      PMA_USER: joselu
+      PMA_PASSWORD: Alumno1234
+      UPLOAD_LIMIT: 64M
+    ports:
+      - "8801:80"
+    depends_on:
+      - db
+    networks:
+      - ci4_net
+
+networks:
+  ci4_net:
+    driver: bridge
