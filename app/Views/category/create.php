@@ -4,16 +4,16 @@
 
     <?= session()->getFlashdata('error') ?>
     <?= validation_list_errors() ?>
-    <?php if(!empty($news) && is_array($news)) : ?>
-    <form action="<?= base_url('news/update/updated/' . $news['id']) ?>" method="post">
+
+    <form action="<?= base_url('news') ?>" method="post">
         <?= csrf_field() ?>
 
         <label for="title">Title</label>
-        <input type="input" name="title" value="<?= $news['title'] ?>">
+        <input type="input" name="title" value="<?= set_value('title') ?>">
         <br>
 
         <label for="body">Text</label>
-        <textarea name="body" cols="45" rows="4"><?= $news['body'] ?></textarea>
+        <textarea name="body" cols="45" rows="4"><?= set_value('body') ?></textarea>
         <br>
         <label for="category">Category</label>
         <select name="id_category">
@@ -28,7 +28,6 @@
         </select>
         <br>
 
-        <input type="submit" name="submit" value="Update news item">
+        <input type="submit" name="submit" value="Create news item">
     </form>
-    <?php endif ?>
 </section>

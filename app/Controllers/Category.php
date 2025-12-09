@@ -7,36 +7,31 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 use App\Models\NewsModel;
 use App\Models\CategoryModel;
 
-class News extends BaseController
+class Category extends BaseController
 {
     public function index()
     {
-        $model = model(NewsModel::class);
+        $model = model(CategoryModel::class);
 
         $data = [
-            'news_list' => $model->getNews(),
-            'title'     => 'News archive',
+            'title' => 'Categoty archive',
         ];
 
         return view('templates/header', $data)
-                . view('news/index')
+                . view('category/index')
                 . view('templates/footer');
     }
 
-    public function show(?string $slug = null)
+    public function show()
     {
-        $model = model(NewsModel::class);
+        $model = model(CategoryModel::class);
 
-        $data['news'] = $model->getNews($slug);
-        
-        if ($data['news'] === null) {
-            throw new PageNotFoundException('Cannot find the news item: ' . $slug);
-        }
-
-        $data['title'] = $data['news']['title'];
+        $data = [
+            'title' => 'Categoty archive',
+        ];
 
         return view('templates/header', $data)
-            . view('news/view')
+            . view('category/view')
             . view('templates/footer');
     }
     public function new()
@@ -44,8 +39,8 @@ class News extends BaseController
         helper('form');
         $model = model(CategoryModel::class);
         if($data['category'] = $model->findAll()) {
-            return view('templates/header', ['title' => 'Create a news item'])
-                . view('news/create', $data)
+            return view('templates/header', ['title' => 'Create a category item'])
+                . view('category/create', $data)
                 . view('templates/footer');
         }
         
@@ -54,13 +49,11 @@ class News extends BaseController
     {
         helper('form');
 
-        $data = $this->request->getPost(['title', 'body']);
+        $data = $this->request->getPost(['category']);
 
         // Checks whether the submitted data passed the validation rules.
         if (! $this->validate([
-            'title' => 'required|max_length[255]|min_length[3]',
-            'body'  => 'required|max_length[5000]|min_length[10]',
-            'id_category' => 'required',
+            'category' => 'required|max_length[255]|min_length[3]',
         ])) {
             // The validation fails, so returns the form.
             return $this->new();
@@ -69,17 +62,15 @@ class News extends BaseController
         // Gets the validated data.
         $post = $this->validator->getValidated();
 
-        $model_cat = model(NewsModel::class);
+        $model_cat = model(CategoryModel::class);
 
         $model_cat->save([
-            'title' => $post['title'],
-            'slug'  => url_title($post['title'], '-', true),
-            'body'  => $post['body'],
-            'id_category' => $post['id_category'],
+            'category' => $post['category'],
+            
         ]);
 
-        return view('templates/header', ['title' => 'Create a news item'])
-            . view('news/success')
+        return view('templates/header', ['title' => 'Create a category item'])
+            . view('category/success')
             . view('templates/footer');
         // return redirect()->to(base_url('/'));
     }
@@ -91,7 +82,7 @@ class News extends BaseController
             throw new PageNotFoundExcepction('Cannot delete the item');
         }        
 
-        $model = model(NewsModel::class);
+        $model = model(CategoryModel::class);
 
         if($model->where('id' ,$id)->find()){
             $model->where('id' ,$id)->delete();
@@ -112,17 +103,12 @@ class News extends BaseController
             throw new PageNotFoundExcepction('Cannot update the item');
         }        
 
-        $model = model(NewsModel::class);
-        $model_cat = model(CategoryModel::class);
-        $data_cat['category'] = $model_cat->findAll();
+        $model = model(CategoryModel::class);
 
         if ($model->where('id', $id)->find()) {
-            // Load categories so the update form can show the category select (like in `new`).
-            $catModel = model(CategoryModel::class);
-            $categories = $catModel->findAll();
 
             $data = [
-                'news' => $model->where('id', $id)->first(),
+                'category' => $model->where('id', $id)->first(),
                 'title' => 'Update Item',
                 
             ];
@@ -131,7 +117,7 @@ class News extends BaseController
         }
 
         return view('templates/header', $data)
-            . view('news/update',$data_cat)
+            . view('category/update')
             . view('templates/footer');
         //return redirec()->to(base_url(''));
     }
@@ -140,13 +126,12 @@ class News extends BaseController
         helper('form');
 
         // Include `id_category` so validation and getValidated() receive it.
-        $data_form = $this->request->getPost(['title', 'body', 'id_category']);
+        $data_form = $this->request->getPost(['category']);
 
         // Checks whether the submitted data passed the validation rules.
         if (! $this->validateData($data_form, [
-            'title' => 'required|max_length[255]|min_length[3]',
-            'body'  => 'required|max_length[5000]|min_length[10]',
-            'id_category' => 'required',
+            'category' => 'required|max_length[255]|min_length[3]',
+            
         ])) {
             // The validation fails, so returns the form.
             return $this->update($id);
@@ -155,14 +140,11 @@ class News extends BaseController
         // Gets the validated data.
         $post = $this->validator->getValidated();
 
-        $model = model(NewsModel::class);
+        $model = model(CategoryModel::class);
 
         $model->save([
             'id' => $id,
-            'title' => $post['title'],
-            'slug'  => url_title($post['title'], '-', true),
-            'body'  => $post['body'],
-            'id_category' => $post['id_category'],
+            'category' => $post['category'],
         ]);
 
     
