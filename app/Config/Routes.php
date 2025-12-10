@@ -1,7 +1,8 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
-use App\Controllers\News;
+use App\Controllers\NewsController;
+use App\Controllers\CategoryController;
 use App\Controllers\Pages;
 /**
  * @var RouteCollection $routes
@@ -9,29 +10,28 @@ use App\Controllers\Pages;
 
 
 //news
-$routes->get('/', [News::class, 'index']);
-$routes->get('news', [News::class, 'index']);
-$routes->get('news/new', [News::class, 'new']); // Add this line
-$routes->post('news', [News::class, 'create']); // Add this line
-$routes->get('news/del/(:num)', [News::class, 'delete']); // Add this line
-$routes->post('news/update/updated/(:num)', [News::class, 'updateItem']); // Add this line
-$routes->get('news/update/(:num)', [News::class, 'update']); // Add this line
-$routes->get('news/(:segment)', [News::class, 'show']);
+$routes->get('/', [NewsController::class, 'index']);
+$routes->get('news', [NewsController::class, 'index']);
+$routes->get('news/new', [NewsController::class, 'new']); // Add this line
+$routes->post('news', [NewsController::class, 'create']); // Add this line
+$routes->get('news/del/(:num)', [NewsController::class, 'delete']); // Add this line
+$routes->post('news/update/updated/(:num)', [NewsController::class, 'updateItem']); // Add this line
+$routes->get('news/update/(:num)', [NewsController::class, 'update']); // Add this line
+$routes->get('news/(:segment)', [NewsController::class, 'show']);
 
 //category
 
-$routes->get('/', [Category::class, 'index']);
-$routes->get('category', [Category::class, 'index']);
-$routes->get('category/new', [Category::class, 'new']); // Add this line
-$routes->post('category', [Category::class, 'create']); // Add this line
-$routes->get('category/del/(:num)', [Category::class, 'delete']); // Add this line
-$routes->post('category/update/updated/(:num)', [Category::class, 'updateItem']); // Add this line
-$routes->get('category/update/(:num)', [Category::class, 'update']); // Add this line
-$routes->get('category/(:segment)', [Category::class, 'show']);
+
+$routes->get('categories', [CategoryController::class, 'index']);
+$routes->get('categories/new', [CategoryController::class, 'new']); // Add this line
+$routes->post('categories/create', [CategoryController::class, 'create']); // Add this line
+$routes->get('categories/del/(:num)', [CategoryController::class, 'delete']); // Add this line
+$routes->post('categories/update/updated/(:num)', [CategoryController::class, 'updateItem']); // Add this line
+$routes->get('categories/update/(:num)', [CategoryController::class, 'update']); // Add this line
+$routes->get('categories/(:segment)', [CategoryController::class, 'show']);
 
 
-$routes->get('pages', [Pages::class, 'index']);
-$routes->get('(:segment)', [Pages::class, 'view']);
+
 
 
 

@@ -1,49 +1,36 @@
 <?php
 
 namespace App\Controllers;
+
 use CodeIgniter\Exceptions\PageNotFoundException;
-
-
-use App\Models\NewsModel;
+use App\Models\Page;
 use App\Models\CategoryModel;
 
-class Category extends BaseController
+
+class CategoryController extends BaseController
 {
     public function index()
     {
         $model = model(CategoryModel::class);
 
         $data = [
+            'categories' => $model->findAll(),
             'title' => 'Categoty archive',
         ];
 
         return view('templates/header', $data)
-                . view('category/index')
-                . view('templates/footer');
-    }
-
-    public function show()
-    {
-        $model = model(CategoryModel::class);
-
-        $data = [
-            'title' => 'Categoty archive',
-        ];
-
-        return view('templates/header', $data)
-            . view('category/view')
+            . view('categories/index')
             . view('templates/footer');
     }
+
+
     public function new()
     {
         helper('form');
-        $model = model(CategoryModel::class);
-        if($data['category'] = $model->findAll()) {
-            return view('templates/header', ['title' => 'Create a category item'])
-                . view('category/create', $data)
-                . view('templates/footer');
-        }
-        
+
+        return view('templates/header', ['title' => 'Create a category item'])
+            . view('categories/create')
+            . view('templates/footer');
     }
     public function create()
     {
@@ -52,7 +39,7 @@ class Category extends BaseController
         $data = $this->request->getPost(['category']);
 
         // Checks whether the submitted data passed the validation rules.
-        if (! $this->validate([
+        if (! $this->validateData($data, [
             'category' => 'required|max_length[255]|min_length[3]',
         ])) {
             // The validation fails, so returns the form.
@@ -66,58 +53,56 @@ class Category extends BaseController
 
         $model_cat->save([
             'category' => $post['category'],
-            
+
         ]);
 
-        return view('templates/header', ['title' => 'Create a category item'])
-            . view('category/success')
-            . view('templates/footer');
-        // return redirect()->to(base_url('/'));
+        return $this->index();
     }
 
     public function delete($id)
     {
-        
+
         if ($id == null) {
-            throw new PageNotFoundExcepction('Cannot delete the item');
-        }        
+            throw new PageNotFoundException('Cannot delete the item');
+        }
 
         $model = model(CategoryModel::class);
 
-        if($model->where('id' ,$id)->find()){
-            $model->where('id' ,$id)->delete();
-        }else {
-            throw new PageNotFoundExcepction('Selected item does not exist in databases');
+        if ($model->where('id', $id)->find()) {
+            $model->where('id', $id)->delete();
+        } else {
+            throw new PageNotFoundException('Selected item does not exist in databases');
         }
 
-    //     return view('templates/header', ['title' => 'Create a news item'])
-    //         . view('news/success')
-    //         . view('templates/footer');
-        return redirect()->to(base_url(''));
+        //     return view('templates/header', ['title' => 'Create a news item'])
+        //         . view('news/success')
+        //         . view('templates/footer');
+        return $this->index();
+
     }
     public function update($id)
     {
         helper('form');
-        
+
         if ($id == null) {
-            throw new PageNotFoundExcepction('Cannot update the item');
-        }        
+            throw new PageNotFoundException('Cannot update the item');
+        }
 
         $model = model(CategoryModel::class);
 
         if ($model->where('id', $id)->find()) {
 
             $data = [
-                'category' => $model->where('id', $id)->first(),
+                'categories' => $model->where('id', $id)->first(),
                 'title' => 'Update Item',
-                
+
             ];
         } else {
-            throw new PageNotFoundExcepction('Selected item  not found in databases');
+            throw new PageNotFoundException('Selected item  not found in databases');
         }
 
-        return view('templates/header', $data)
-            . view('category/update')
+        return view('templates/header', ['title' => 'Update categories item'])
+            . view('categories/update', $data)
             . view('templates/footer');
         //return redirec()->to(base_url(''));
     }
@@ -131,7 +116,7 @@ class Category extends BaseController
         // Checks whether the submitted data passed the validation rules.
         if (! $this->validateData($data_form, [
             'category' => 'required|max_length[255]|min_length[3]',
-            
+
         ])) {
             // The validation fails, so returns the form.
             return $this->update($id);
@@ -147,7 +132,7 @@ class Category extends BaseController
             'category' => $post['category'],
         ]);
 
-    
-        return redirect()->to(base_url(''));
+
+        return $this->index();
     }
 }

@@ -3,11 +3,10 @@
 namespace App\Controllers;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
-
 use App\Models\NewsModel;
 use App\Models\CategoryModel;
 
-class News extends BaseController
+class NewsController extends BaseController
 {
     public function index()
     {
@@ -88,7 +87,7 @@ class News extends BaseController
     {
         
         if ($id == null) {
-            throw new PageNotFoundExcepction('Cannot delete the item');
+            throw new PageNotFoundException('Cannot delete the item');
         }        
 
         $model = model(NewsModel::class);
@@ -96,7 +95,7 @@ class News extends BaseController
         if($model->where('id' ,$id)->find()){
             $model->where('id' ,$id)->delete();
         }else {
-            throw new PageNotFoundExcepction('Selected item does not exist in databases');
+            throw new PageNotFoundException('Selected item does not exist in databases');
         }
 
     //     return view('templates/header', ['title' => 'Create a news item'])
@@ -109,7 +108,7 @@ class News extends BaseController
         helper('form');
         
         if ($id == null) {
-            throw new PageNotFoundExcepction('Cannot update the item');
+            throw new PageNotFoundException('Cannot update the item');
         }        
 
         $model = model(NewsModel::class);
@@ -127,7 +126,7 @@ class News extends BaseController
                 
             ];
         } else {
-            throw new PageNotFoundExcepction('Selected item  not found in databases');
+            throw new PageNotFoundException('Selected item  not found in databases');
         }
 
         return view('templates/header', $data)
