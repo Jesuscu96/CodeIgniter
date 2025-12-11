@@ -1,0 +1,78 @@
+ERROR - 2025-12-11 16:51:21 --> mysqli_sql_exception: Table 'ci4tutorial.category' doesn't exist in C:\wamp64\www\CodeIgniter\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\wamp64\www\CodeIgniter\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `news`.*...', 0)
+#1 C:\wamp64\www\CodeIgniter\system\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `news`.*...')
+#2 C:\wamp64\www\CodeIgniter\system\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `news`.*...')
+#3 C:\wamp64\www\CodeIgniter\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `news`.*...', Array, false)
+#4 C:\wamp64\www\CodeIgniter\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\wamp64\www\CodeIgniter\system\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\wamp64\www\CodeIgniter\app\Models\NewsModel.php(22): CodeIgniter\BaseModel->findAll()
+#7 C:\wamp64\www\CodeIgniter\app\Controllers\NewsController.php(16): App\Models\NewsModel->getNews()
+#8 C:\wamp64\www\CodeIgniter\system\CodeIgniter.php(933): App\Controllers\NewsController->index()
+#9 C:\wamp64\www\CodeIgniter\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\NewsController))
+#10 C:\wamp64\www\CodeIgniter\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\wamp64\www\CodeIgniter\system\Boot.php(334): CodeIgniter\CodeIgniter->run()
+#12 C:\wamp64\www\CodeIgniter\system\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\wamp64\www\CodeIgniter\public\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 16:51:21 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4tutorial.category' doesn't exist
+[Method: GET, Route: /]
+in SYSTEMPATH\Database\BaseConnection.php on line 692.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`', [], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\NewsModel.php(22): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\NewsController.php(16): App\Models\NewsModel->getNews()
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\NewsController->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\NewsController))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 16:51:21 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'ci4tutorial.category' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`')
+ 2 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`', [], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\NewsModel.php(22): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\NewsController.php(16): App\Models\NewsModel->getNews()
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\NewsController->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\NewsController))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 16:51:21 --> [Caused by] mysqli_sql_exception: Table 'ci4tutorial.category' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(738): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`')
+ 3 SYSTEMPATH\Database\BaseConnection.php(652): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `news`.*, `category`.`category`
+FROM `news`
+JOIN `category` ON `news`.`id_category`=`category`.`id`', [], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(675): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\NewsModel.php(22): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\NewsController.php(16): App\Models\NewsModel->getNews()
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\NewsController->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\NewsController))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(334): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
