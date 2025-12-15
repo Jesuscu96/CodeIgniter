@@ -17,9 +17,9 @@ class NewsController extends BaseController
             'title'     => 'News archive',
         ];
 
-        return view('templates/header', $data)
-                . view('news/index')
-                . view('templates/footer');
+        return view('backend/templates/header', $data)
+                . view('backend/news/index')
+                . view('backend/templates/footer');
     }
 
     public function show(?string $slug = null)
@@ -34,18 +34,18 @@ class NewsController extends BaseController
 
         $data['title'] = $data['news']['title'];
 
-        return view('templates/header', $data)
-            . view('news/view')
-            . view('templates/footer');
+        return view('backend/templates/header', $data)
+            . view('backend/news/view')
+            . view('backend/templates/footer');
     }
     public function new()
     {
         helper('form');
         $model = model(CategoryModel::class);
         if($data['category'] = $model->findAll()) {
-            return view('templates/header', ['title' => 'Create a news item'])
-                . view('news/create', $data)
-                . view('templates/footer');
+            return view('backend/templates/header', ['title' => 'Create a news item'])
+                . view('backend/news/create', $data)
+                . view('backend/templates/footer');
         }
         
     }
@@ -77,9 +77,9 @@ class NewsController extends BaseController
             'id_category' => $post['id_category'],
         ]);
 
-        return view('templates/header', ['title' => 'Create a news item'])
-            . view('news/success')
-            . view('templates/footer');
+        return view('backend/templates/header', ['title' => 'Create a news item'])
+            . view('backend/news/success')
+            . view('backend/templates/footer');
         // return redirect()->to(base_url('/'));
     }
 
@@ -129,9 +129,9 @@ class NewsController extends BaseController
             throw new PageNotFoundException('Selected item  not found in databases');
         }
 
-        return view('templates/header', $data)
-            . view('news/update',$data_cat)
-            . view('templates/footer');
+        return view('backend/templates/header', $data)
+            . view('backend/news/update',$data_cat)
+            . view('backend/templates/footer');
         //return redirec()->to(base_url(''));
     }
     public function updateItem($id)
