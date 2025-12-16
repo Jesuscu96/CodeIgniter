@@ -1,11 +1,11 @@
 <section>
-    <a href="<?= base_url('categories') ?>">Return</a>
+    <a href="<?= base_url('backend/categories') ?>">Return</a>
     <h2><?= esc($title) ?></h2>
 
     <?= session()->getFlashdata('error') ?>
     <?= validation_list_errors() ?>
 
-    <form action="<?= base_url('categories/create') ?>" method="post">
+    <form action="<?= base_url('backend/categories/create') ?>" method="post">
         <?= csrf_field() ?>
 
         <label for="title">Category</label>

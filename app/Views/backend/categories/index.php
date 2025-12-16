@@ -1,7 +1,7 @@
 <section>
 
     <h2><?= esc($title) ?></h2>
-    <p><a href="<?= base_url('categories/new') ?>">Create Category</a></p>
+    <p><a href="<?= base_url('backend/categories/new') ?>">Create Category</a></p>
     
     <?php if ($categories !== []): ?>
 
@@ -14,9 +14,9 @@
             <p>
                 
 
-                <a href="<?= base_url('categories/del/'.$categories_item['id']) ?>">Delete Category</a>
+                <a href="<?= base_url('backend/categories/del/'.$categories_item['id']) ?>">Delete Category</a>
 
-                <a href="<?= base_url('categories/update/'.$categories_item['id']) ?>">Edit Category</a>
+                <a href="<?= base_url('backend/categories/update/'.$categories_item['id']) ?>">Edit Category</a>
                 
             </p>
 

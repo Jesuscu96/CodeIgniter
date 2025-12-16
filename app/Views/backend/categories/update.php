@@ -1,11 +1,11 @@
 <section>
-    <a href="<?= base_url('/') ?>">Return</a>
+    <a href="<?= base_url('backend/categories') ?>">Return</a>
     <h2><?= esc($title) ?></h2>
 
     <?= session()->getFlashdata('error') ?>
     <?= validation_list_errors() ?>
     <?php if(!empty($categories) && is_array($categories)) : ?>
-    <form action="<?= base_url('categories/update/updated/' . $categories['id']) ?>" method="post">
+    <form action="<?= base_url('backend/categories/update/updated/' . $categories['id']) ?>" method="post">
         <?= csrf_field() ?>
 
         <label for="category">Categories</label>

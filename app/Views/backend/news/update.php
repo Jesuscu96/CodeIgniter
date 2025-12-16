@@ -1,11 +1,11 @@
 <section>
-    <a href="<?= base_url('/') ?>">Return</a>
+    <a href="<?= base_url('backend') ?>">Return</a>
     <h2><?= esc($title) ?></h2>
 
     <?= session()->getFlashdata('error') ?>
     <?= validation_list_errors() ?>
     <?php if(!empty($news) && is_array($news)) : ?>
-    <form action="<?= base_url('news/update/updated/' . $news['id']) ?>" method="post">
+    <form action="<?= base_url('backend/news/update/updated/' . $news['id']) ?>" method="post">
         <?= csrf_field() ?>
 
         <label for="title">Title</label>

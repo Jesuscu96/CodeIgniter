@@ -8,7 +8,7 @@ use App\Models\CategoryModel;
 
 class NewsController extends BaseController
 {
-    public function index()
+    public function index($layer = null)
     {
         $model = model(NewsModel::class);
 
@@ -16,13 +16,18 @@ class NewsController extends BaseController
             'news_list' => $model->getNews(),
             'title'     => 'News archive',
         ];
-
-        return view('backend/templates/header', $data)
+        if($layer == null) :
+            return view('frontend/templates/header', $data)
+                . view('frontend/news/index')
+                . view('frontend/templates/footer');
+        else:
+            return view('backend/templates/header', $data)
                 . view('backend/news/index')
                 . view('backend/templates/footer');
+        endif;
     }
 
-    public function show(?string $slug = null)
+    public function show(?string $slug = null, $layer = null)
     {
         $model = model(NewsModel::class);
 
@@ -33,10 +38,18 @@ class NewsController extends BaseController
         }
 
         $data['title'] = $data['news']['title'];
-
-        return view('backend/templates/header', $data)
-            . view('backend/news/view')
+        return view('backend/templates/header', ['title' => 'Create a news item'])
+            . view('backend/news/create', $data)
             . view('backend/templates/footer');
+        // if($layer == null) :
+        //     return view('frontend/templates/header', $data)
+        //         . view('frontend/news/view')
+        //         . view('frontend/templates/footer');
+        // else:
+        //     return view('backend/templates/header', $data)
+        //         . view('backend/news/view')
+        //         . view('backend/templates/footer');
+        // endif;
     }
     public function new()
     {
