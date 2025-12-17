@@ -38,8 +38,8 @@ class NewsController extends BaseController
         }
 
         $data['title'] = $data['news']['title'];
-        return view('backend/templates/header', ['title' => 'Create a news item'])
-            . view('backend/news/create', $data)
+        return view('backend/templates/header', $data)
+            . view('backend/news/view')
             . view('backend/templates/footer');
         // if($layer == null) :
         //     return view('frontend/templates/header', $data)
