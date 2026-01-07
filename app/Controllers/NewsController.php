@@ -8,23 +8,21 @@ use App\Models\CategoryModel;
 
 class NewsController extends BaseController
 {
-    public function index($layer = null)
+    public function index()
     {
         $model = model(NewsModel::class);
+        $model_categorias = model(CategoryModel::class);
 
         $data = [
             'news_list' => $model->getNews(),
             'title'     => 'News archive',
+            'categories_list' => $model_categorias->findAll(),
         ];
-        if($layer == null) :
-            return view('frontend/templates/header', $data)
-                . view('frontend/news/index')
-                . view('frontend/templates/footer');
-        else:
-            return view('backend/templates/header', $data)
-                . view('backend/news/index')
-                . view('backend/templates/footer');
-        endif;
+        
+        return view('backend/templates/header', $data)
+            . view('backend/news/index')
+            . view('backend/templates/footer');
+       
     }
 
     public function show(?string $slug = null, $layer = null)
@@ -51,6 +49,40 @@ class NewsController extends BaseController
         //         . view('backend/templates/footer');
         // endif;
     }
+     public function newsBycategory($id)
+    {
+        $model = model(NewsModel::class);
+        $model_categorias = model(CategoryModel::class);
+        ///////////////////////////////////////////////////////
+
+        // FORMA MARILUZ
+
+        // $sql = $model->select('news.*,category.category');
+        // $sql = $model->join('category','news.id_category=category.id');
+        // $sql = $model->where('id_category', $id)->findAll();
+
+        // $data = [
+        //     'news_list' => $sql,
+        //     'title'     => 'News archive',
+        //     'categories_list' => $model_categorias->findAll(),
+        // ];
+        ////////////////////////////////////////////////////////////
+        
+        
+        
+        $data = [ // FORMA JOSELU
+            'news_list' => $model->where('id_category', $id)->getNews(),
+            'title'     => 'News archive',
+            'categories_list' => $model_categorias->findAll(),
+        ];
+        
+        return view('backend/templates/header', $data)
+            . view('backend/news/index')
+            . view('backend/templates/footer');
+       
+    }
+
+    
     public function new()
     {
         helper('form');
